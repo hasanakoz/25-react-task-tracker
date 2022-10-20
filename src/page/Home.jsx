@@ -8,17 +8,17 @@ import { useEffect } from "react";
 const Home = () => {
   const [show, setShow] = useState(false);
   const [text, setText] = useState("Show Task Bar");
-  const [task, setTask] = useState();
+  const [task, setTask] = useState([]);
   const url = "https://63518211dfe45bbd55c21be0.mockapi.io/api/tasks";
 
-  const toggle = (e) => {
+  const toggle = () => {
     setShow(!show);
     const buttonText = show ? "Show Task Bar" : "Hide Task Bar";
     setText(buttonText);
   };
 
   const getTask = async () => {
-    const data = await axios(url);
+    const { data } = await axios(url);
     setTask(data);
     console.log(data);
   };
@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mt-4 d-flex justify-content-center flex-column">
       <Button
         onClick={() => {
           toggle();
