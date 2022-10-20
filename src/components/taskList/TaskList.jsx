@@ -7,10 +7,10 @@ const TaskList = ({ task, getTask }) => {
     const url = "https://63518211dfe45bbd55c21be0.mockapi.io/api/tasks";
     try {
       await axios.delete(`${url}/${id}`);
+      getTask();
     } catch (error) {
       console.log(error);
     }
-    getTask();
   };
 
   return (
@@ -20,7 +20,7 @@ const TaskList = ({ task, getTask }) => {
         return (
           <div
             key={id}
-            className="mt-2 d-flex justify-content-between bg-secondary rounded-2 p-2"
+            className="mt-2 d-flex justify-content-between bg-secondary rounded-2 p-2 align-items-center"
           >
             <div>
               <h4>{task}</h4>
@@ -28,6 +28,7 @@ const TaskList = ({ task, getTask }) => {
             </div>
             <div>
               <RiDeleteBack2Fill
+                className="text-warning"
                 onClick={() => {
                   deleteTask(id);
                 }}
@@ -35,7 +36,6 @@ const TaskList = ({ task, getTask }) => {
                   cursor: "pointer",
                   marginRight: "20px",
                   fontSize: "2rem",
-                  boxShadow: "2px 2px 2px #ECAB9E",
                 }}
               />
             </div>

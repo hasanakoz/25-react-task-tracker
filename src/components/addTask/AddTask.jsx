@@ -1,16 +1,18 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 const AddTask = ({ getTask }) => {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState("");
   const [date, setDate] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = { task, date };
     addNewTask(newTask);
+    setTask("");
+
     console.log(newTask);
   };
 
@@ -18,15 +20,15 @@ const AddTask = ({ getTask }) => {
     const url = "https://63518211dfe45bbd55c21be0.mockapi.io/api/tasks";
     try {
       await axios.post(url, newTask);
+      getTask();
     } catch (error) {
       console.log(error);
     }
-
-    getTask();
   };
+
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="d-flex flex-column">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Task</Form.Label>
           <Form.Control
@@ -45,7 +47,7 @@ const AddTask = ({ getTask }) => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button className="mb-4 bg-danger" variant="primary" type="submit">
           Submit
         </Button>
       </Form>
