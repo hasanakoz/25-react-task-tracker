@@ -1,9 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const AddTask = () => {
+const AddTask = ({ getTask }) => {
   const [task, setTask] = useState();
   const [date, setDate] = useState();
 
@@ -11,6 +11,7 @@ const AddTask = () => {
     e.preventDefault();
     const newTask = { task, date };
     addNewTask(newTask);
+    console.log(newTask);
   };
 
   const addNewTask = async (newTask) => {
@@ -20,8 +21,9 @@ const AddTask = () => {
     } catch (error) {
       console.log(error);
     }
-  };
 
+    getTask();
+  };
   return (
     <div>
       <Form onSubmit={handleSubmit}>
